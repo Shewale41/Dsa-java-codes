@@ -48,19 +48,29 @@ class Solution {
             }
         }
 
-        recStack[current]=true;
+        recStack[current]=false;
         return false;
     }
 
 
     public static void main(String args[]) {
-        int v = 7;
+        int v = 4;
         @SuppressWarnings("unchecked")
         ArrayList<Edge> graph[] = new ArrayList[v];
 
         createGraph(graph);
         boolean[] visited = new boolean[v];   
-        boolean result = isCycleDirected(graph,visited,0,new boolean[v]);
-        System.out.println(result);
+        boolean[] recStack = new boolean[v];
+        
+        //for disconnected components just like all 
+        for(int i=0;i<v;i++){
+            if(!visited[i]){
+            boolean result = isCycleDirected(graph,visited,i,recStack);
+               if(result){
+                System.out.println(result);
+                break;
+               }
+            }
+        }
     }
 }
